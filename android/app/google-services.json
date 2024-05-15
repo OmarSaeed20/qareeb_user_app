@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "657725427758",
+    "firebase_url": "https://mared-app.firebaseio.com",
+    "project_id": "mared-app",
+    "storage_bucket": "mared-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657725427758:android:f754b77096bf8b3a778fbf",
+        "android_client_info": {
+          "package_name": "com.semicolon.qareeb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657725427758-oh6rjadft17f16ovc69dnggau61l235t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxllRaUavkZ2xKg8-XBIvnbb7E4G8zwGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657725427758-oh6rjadft17f16ovc69dnggau61l235t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657725427758-4tnvgdue9c6485ohm08o1phbh5h84k4h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.semicolon.qareeb"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657725427758:android:dba9c8f444e8ae24778fbf",
+        "android_client_info": {
+          "package_name": "com.semicolon.qareeb.delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657725427758-oh6rjadft17f16ovc69dnggau61l235t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxllRaUavkZ2xKg8-XBIvnbb7E4G8zwGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657725427758-oh6rjadft17f16ovc69dnggau61l235t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657725427758-4tnvgdue9c6485ohm08o1phbh5h84k4h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.semicolon.qareeb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

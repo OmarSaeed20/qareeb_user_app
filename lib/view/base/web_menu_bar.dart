@@ -16,7 +16,7 @@ import 'package:sixam_mart/view/base/text_hover.dart';
 import 'package:sixam_mart/view/screens/search/widget/search_field.dart';
 
 class WebMenuBar extends StatefulWidget implements PreferredSizeWidget {
-  const WebMenuBar({Key? key}) : super(key: key);
+  const WebMenuBar({super.key});
 
   @override
   State<WebMenuBar> createState() => _WebMenuBarState();
@@ -275,8 +275,7 @@ class _WebMenuBarState extends State<WebMenuBar> {
 class MenuButton extends StatelessWidget {
   final String title;
   final Function onTap;
-  const MenuButton({Key? key, required this.title, required this.onTap})
-      : super(key: key);
+  const MenuButton({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -296,8 +295,10 @@ class MenuIconButton extends StatelessWidget {
   final bool isCart;
   final Function onTap;
   const MenuIconButton(
-      {Key? key, required this.icon, this.isCart = false, required this.onTap})
-      : super(key: key);
+      {super.key,
+      required this.icon,
+      this.isCart = false,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {

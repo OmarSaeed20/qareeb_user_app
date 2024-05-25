@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddressScreen extends StatefulWidget {
-  const AddressScreen({Key? key}) : super(key: key);
+  const AddressScreen({super.key});
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
@@ -32,7 +32,7 @@ class _AddressScreenState extends State<AddressScreen> {
     super.initState();
 
     _isLoggedIn = Get.find<AuthController>().isLoggedIn();
-    if(_isLoggedIn) {
+    if (_isLoggedIn) {
       Get.find<LocationController>().getAddressList();
     }
   }
@@ -41,86 +41,154 @@ class _AddressScreenState extends State<AddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'my_address'.tr),
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
-      floatingActionButton: ResponsiveHelper.isDesktop(context) ? null : FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () => Get.toNamed(RouteHelper.getAddAddressRoute(false, false, 0)),
-        child: Icon(Icons.add, color: Theme.of(context).cardColor),
-      ),
-      floatingActionButtonLocation: ResponsiveHelper.isDesktop(context) ? FloatingActionButtonLocation.centerFloat : null,
-      body: _isLoggedIn ? GetBuilder<LocationController>(builder: (locationController) {
-        return RefreshIndicator(
-          onRefresh: () async {
-            await locationController.getAddressList();
-          },
-          child: Scrollbar(child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Center(child: FooterView(
-              child: SizedBox(
-                width: Dimensions.webMaxWidth,
-                child: Column(
-                  children: [
-
-                    ResponsiveHelper.isDesktop(context) ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeSmall),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                        Text('address'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-                        TextButton.icon(
-                          icon: const Icon(Icons.add), label: Text('add_address'.tr),
-                          onPressed: () => Get.toNamed(RouteHelper.getAddAddressRoute(false, false, 0)),
-                        ),
-                      ]),
-                    ) : const SizedBox.shrink(),
-
-                    locationController.addressList != null ? locationController.addressList!.isNotEmpty ? ListView.builder(
-                      padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                      itemCount: locationController.addressList!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                          key: UniqueKey(),
-                          onDismissed: (dir) {
-                            showDialog(context: context, builder: (context) => const CustomLoader(), barrierDismissible: false);
-                            locationController.deleteUserAddressByID(locationController.addressList![index].id, index).then((response) {
-                              Navigator.pop(context);
-                              showCustomSnackBar(response.message, isError: !response.isSuccess);
-                            });
-                          },
-                          child: AddressWidget(
-                            address: locationController.addressList![index], fromAddress: true,
-                            onTap: () {
-                              Get.toNamed(RouteHelper.getMapRoute(
-                                locationController.addressList![index], 'address',
-                              ));
-                            },
-                            onEditPressed: () {
-                              Get.toNamed(RouteHelper.getEditAddressRoute(locationController.addressList![index]));
-                            },
-                            onRemovePressed: () {
-                              if(Get.isSnackbarOpen) {
-                                Get.back();
-                              }
-                              Get.dialog(ConfirmationDialog(icon: Images.warning, description: 'are_you_sure_want_to_delete_address'.tr, onYesPressed: () {
-                                Get.back();
-                                Get.dialog(const CustomLoader(), barrierDismissible: false);
-                                locationController.deleteUserAddressByID(locationController.addressList![index].id, index).then((response) {
-                                  Get.back();
-                                  showCustomSnackBar(response.message, isError: !response.isSuccess);
-                                });
-                              }));
-                            },
-                          ),
-                        );
-                      },
-                    ) : NoDataScreen(text: 'no_saved_address_found'.tr) : const Center(child: CircularProgressIndicator()),
-                  ],
-                ),
-              ),
-            )),
-          )),
-        );
-      }) : const NotLoggedInScreen(),
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
+      floatingActionButton: ResponsiveHelper.isDesktop(context)
+          ? null
+          : FloatingActionButton(
+              backgroundColor: Theme.of(context).primaryColor,
+              onPressed: () =>
+                  Get.toNamed(RouteHelper.getAddAddressRoute(false, false, 0)),
+              child: Icon(Icons.add, color: Theme.of(context).cardColor),
+            ),
+      floatingActionButtonLocation: ResponsiveHelper.isDesktop(context)
+          ? FloatingActionButtonLocation.centerFloat
+          : null,
+      body: _isLoggedIn
+          ? GetBuilder<LocationController>(builder: (locationController) {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await locationController.getAddressList();
+                },
+                child: Scrollbar(
+                    child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Center(
+                      child: FooterView(
+                    child: SizedBox(
+                      width: Dimensions.webMaxWidth,
+                      child: Column(
+                        children: [
+                          ResponsiveHelper.isDesktop(context)
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSizeSmall,
+                                      vertical: Dimensions.paddingSizeSmall),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('address'.tr,
+                                            style: robotoMedium.copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeLarge)),
+                                        TextButton.icon(
+                                          icon: const Icon(Icons.add),
+                                          label: Text('add_address'.tr),
+                                          onPressed: () => Get.toNamed(
+                                              RouteHelper.getAddAddressRoute(
+                                                  false, false, 0)),
+                                        ),
+                                      ]),
+                                )
+                              : const SizedBox.shrink(),
+                          locationController.addressList != null
+                              ? locationController.addressList!.isNotEmpty
+                                  ? ListView.builder(
+                                      padding: const EdgeInsets.all(
+                                          Dimensions.paddingSizeSmall),
+                                      itemCount: locationController
+                                          .addressList!.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return Dismissible(
+                                          key: UniqueKey(),
+                                          onDismissed: (dir) {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    const CustomLoader(),
+                                                barrierDismissible: false);
+                                            locationController
+                                                .deleteUserAddressByID(
+                                                    locationController
+                                                        .addressList![index].id,
+                                                    index)
+                                                .then((response) {
+                                              Navigator.pop(context);
+                                              showCustomSnackBar(
+                                                  response.message,
+                                                  isError: !response.isSuccess);
+                                            });
+                                          },
+                                          child: AddressWidget(
+                                            address: locationController
+                                                .addressList![index],
+                                            fromAddress: true,
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  RouteHelper.getMapRoute(
+                                                locationController
+                                                    .addressList![index],
+                                                'address',
+                                              ));
+                                            },
+                                            onEditPressed: () {
+                                              Get.toNamed(RouteHelper
+                                                  .getEditAddressRoute(
+                                                      locationController
+                                                              .addressList![
+                                                          index]));
+                                            },
+                                            onRemovePressed: () {
+                                              if (Get.isSnackbarOpen) {
+                                                Get.back();
+                                              }
+                                              Get.dialog(ConfirmationDialog(
+                                                  icon: Images.warning,
+                                                  description:
+                                                      'are_you_sure_want_to_delete_address'
+                                                          .tr,
+                                                  onYesPressed: () {
+                                                    Get.back();
+                                                    Get.dialog(
+                                                        const CustomLoader(),
+                                                        barrierDismissible:
+                                                            false);
+                                                    locationController
+                                                        .deleteUserAddressByID(
+                                                            locationController
+                                                                .addressList![
+                                                                    index]
+                                                                .id,
+                                                            index)
+                                                        .then((response) {
+                                                      Get.back();
+                                                      showCustomSnackBar(
+                                                          response.message,
+                                                          isError: !response
+                                                              .isSuccess);
+                                                    });
+                                                  }));
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : NoDataScreen(
+                                      text: 'no_saved_address_found'.tr)
+                              : const Center(
+                                  child: CircularProgressIndicator()),
+                        ],
+                      ),
+                    ),
+                  )),
+                )),
+              );
+            })
+          : const NotLoggedInScreen(),
     );
   }
 }

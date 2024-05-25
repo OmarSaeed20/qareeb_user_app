@@ -32,13 +32,12 @@ class ItemBottomSheet extends StatefulWidget {
   final int? cartIndex;
   final bool inStorePage;
   const ItemBottomSheet(
-      {Key? key,
+      {super.key,
       required this.item,
       this.isCampaign = false,
       this.cart,
       this.cartIndex,
-      this.inStorePage = false})
-      : super(key: key);
+      this.inStorePage = false});
 
   @override
   State<ItemBottomSheet> createState() => _ItemBottomSheetState();
@@ -878,6 +877,7 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                               CartModel cartModel = CartModel(
                                                 price,
                                                 priceWithDiscount,
+                                                // ignore: unnecessary_null_comparison
                                                 variation != null
                                                     ? [variation]
                                                     : [],
@@ -971,8 +971,7 @@ class VariationView extends StatelessWidget {
   final Item? item;
   final ItemController itemController;
   const VariationView(
-      {Key? key, required this.item, required this.itemController})
-      : super(key: key);
+      {super.key, required this.item, required this.itemController});
 
   @override
   Widget build(BuildContext context) {
@@ -1044,8 +1043,7 @@ class NewVariationView extends StatelessWidget {
   final Item? item;
   final ItemController itemController;
   const NewVariationView(
-      {Key? key, required this.item, required this.itemController})
-      : super(key: key);
+      {super.key, required this.item, required this.itemController});
 
   @override
   Widget build(BuildContext context) {

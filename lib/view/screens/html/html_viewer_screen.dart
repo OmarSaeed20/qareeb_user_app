@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class HtmlViewerScreen extends StatefulWidget {
   final HtmlType htmlType;
-  const HtmlViewerScreen({Key? key, required this.htmlType}) : super(key: key);
+  const HtmlViewerScreen({super.key, required this.htmlType});
 
   @override
   State<HtmlViewerScreen> createState() => _HtmlViewerScreenState();
@@ -34,19 +34,20 @@ class _HtmlViewerScreenState extends State<HtmlViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          title: widget.htmlType == HtmlType.termsAndCondition
-              ? 'terms_conditions'.tr
-              : widget.htmlType == HtmlType.aboutUs
-                  ? 'about_us'.tr
-                  : widget.htmlType == HtmlType.privacyPolicy
-                      ? 'privacy_policy'.tr
-                      : widget.htmlType == HtmlType.shippingPolicy
-                          ? 'shipping_policy'.tr
-                          : widget.htmlType == HtmlType.refund
-                              ? 'refund_policy'.tr
-                              : widget.htmlType == HtmlType.cancellation
-                                  ? 'cancellation_policy'.tr
-                                  : 'no_data_found'.tr),
+        title: widget.htmlType == HtmlType.termsAndCondition
+            ? 'terms_conditions'.tr
+            : widget.htmlType == HtmlType.aboutUs
+                ? 'about_us'.tr
+                : widget.htmlType == HtmlType.privacyPolicy
+                    ? 'privacy_policy'.tr
+                    : widget.htmlType == HtmlType.shippingPolicy
+                        ? 'shipping_policy'.tr
+                        : widget.htmlType == HtmlType.refund
+                            ? 'refund_policy'.tr
+                            : widget.htmlType == HtmlType.cancellation
+                                ? 'cancellation_policy'.tr
+                                : 'no_data_found'.tr,
+      ),
       endDrawer: const MenuDrawer(),
       endDrawerEnableOpenDragGesture: false,
       body: GetBuilder<SplashController>(builder: (splashController) {

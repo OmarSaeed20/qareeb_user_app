@@ -19,7 +19,10 @@ import 'package:phone_number/phone_number.dart';
 class ForgetPassScreen extends StatefulWidget {
   final bool fromSocialLogin;
   final SocialLogInBody? socialLogInBody;
-  const ForgetPassScreen({Key? key, required this.fromSocialLogin, required this.socialLogInBody}) : super(key: key);
+  const ForgetPassScreen(
+      {super.key,
+      required this.fromSocialLogin,
+      required this.socialLogInBody});
 
   @override
   State<ForgetPassScreen> createState() => _ForgetPassScreenState();
@@ -27,32 +30,48 @@ class ForgetPassScreen extends StatefulWidget {
 
 class _ForgetPassScreenState extends State<ForgetPassScreen> {
   final TextEditingController _numberController = TextEditingController();
-  String? _countryDialCode = CountryCode.fromCountryCode(Get.find<SplashController>().configModel!.country!).dialCode;
+  String? _countryDialCode = CountryCode.fromCountryCode(
+          Get.find<SplashController>().configModel!.country!)
+      .dialCode;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
-      body: SafeArea(child: Center(child: Scrollbar(child: SingleChildScrollView(
+      appBar: CustomAppBar(
+          title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
+      body: SafeArea(
+          child: Center(
+              child: Scrollbar(
+                  child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: FooterView(child: Container(
+        child: FooterView(
+            child: Container(
           width: context.width > 700 ? 700 : context.width,
-          padding: context.width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
+          padding: context.width > 700
+              ? const EdgeInsets.all(Dimensions.paddingSizeDefault)
+              : null,
           margin: const EdgeInsets.all(Dimensions.paddingSizeDefault),
-          decoration: context.width > 700 ? BoxDecoration(
-            color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-            boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 700 : 300]!, blurRadius: 5, spreadRadius: 1)],
-          ) : null,
+          decoration: context.width > 700
+              ? BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey[Get.isDarkMode ? 700 : 300]!,
+                        blurRadius: 5,
+                        spreadRadius: 1)
+                  ],
+                )
+              : null,
           child: Column(children: [
-
             Image.asset(Images.forgot, height: 220),
-
             Padding(
               padding: const EdgeInsets.all(30),
-              child: Text('please_enter_mobile'.tr, style: robotoRegular, textAlign: TextAlign.center),
+              child: Text('please_enter_mobile'.tr,
+                  style: robotoRegular, textAlign: TextAlign.center),
             ),
-
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
@@ -70,27 +89,30 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                   showFlagMain: true,
                   dialogBackgroundColor: Theme.of(context).cardColor,
                   textStyle: robotoRegular.copyWith(
-                    fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).textTheme.bodyLarge!.color,
+                    fontSize: Dimensions.fontSizeLarge,
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
                   ),
                 ),
-                Expanded(child: CustomTextField(
+                Expanded(
+                    child: CustomTextField(
                   controller: _numberController,
                   inputType: TextInputType.phone,
                   inputAction: TextInputAction.done,
                   hintText: 'phone'.tr,
-                  onSubmit: (text) => GetPlatform.isWeb ? _forgetPass(_countryDialCode!) : null,
+                  onSubmit: (text) =>
+                      GetPlatform.isWeb ? _forgetPass(_countryDialCode!) : null,
                 )),
               ]),
             ),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-
             GetBuilder<AuthController>(builder: (authController) {
-              return !authController.isLoading ? CustomButton(
-                buttonText: 'next'.tr,
-                onPressed: () => _forgetPass(_countryDialCode!),
-              ) : const Center(child: CircularProgressIndicator());
+              return !authController.isLoading
+                  ? CustomButton(
+                      buttonText: 'next'.tr,
+                      onPressed: () => _forgetPass(_countryDialCode!),
+                    )
+                  : const Center(child: CircularProgressIndicator());
             }),
-
           ]),
         )),
       )))),
@@ -100,29 +122,35 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
   void _forgetPass(String countryCode) async {
     String phone = _numberController.text.trim();
 
-    String numberWithCountryCode = countryCode+phone;
+    String numberWithCountryCode = countryCode + phone;
     bool isValid = GetPlatform.isAndroid ? false : true;
-    if(GetPlatform.isAndroid) {
+    if (GetPlatform.isAndroid) {
       try {
-        PhoneNumber phoneNumber = await PhoneNumberUtil().parse(numberWithCountryCode);
-        numberWithCountryCode = '+${phoneNumber.countryCode}${phoneNumber.nationalNumber}';
+        PhoneNumber phoneNumber =
+            await PhoneNumberUtil().parse(numberWithCountryCode);
+        numberWithCountryCode =
+            '+${phoneNumber.countryCode}${phoneNumber.nationalNumber}';
         isValid = true;
       } catch (_) {}
     }
 
     if (phone.isEmpty) {
       showCustomSnackBar('enter_phone_number'.tr);
-    }else if (!isValid) {
+    } else if (!isValid) {
       showCustomSnackBar('invalid_phone_number'.tr);
-    }else {
-      if(widget.fromSocialLogin) {
+    } else {
+      if (widget.fromSocialLogin) {
         widget.socialLogInBody!.phone = numberWithCountryCode;
-        Get.find<AuthController>().registerWithSocialMedia(widget.socialLogInBody!);
-      }else {
-        Get.find<AuthController>().forgetPassword(numberWithCountryCode).then((status) async {
+        Get.find<AuthController>()
+            .registerWithSocialMedia(widget.socialLogInBody!);
+      } else {
+        Get.find<AuthController>()
+            .forgetPassword(numberWithCountryCode)
+            .then((status) async {
           if (status.isSuccess) {
-            Get.toNamed(RouteHelper.getVerificationRoute(numberWithCountryCode, '', RouteHelper.forgotPassword, ''));
-          }else {
+            Get.toNamed(RouteHelper.getVerificationRoute(
+                numberWithCountryCode, '', RouteHelper.forgotPassword, ''));
+          } else {
             showCustomSnackBar(status.message);
           }
         });

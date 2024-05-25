@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class ItemView extends StatelessWidget {
   final bool isItem;
-  const ItemView({Key? key, required this.isItem}) : super(key: key);
+  const ItemView({super.key, required this.isItem});
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'helper/get_di.dart' as di;
+import 'firebase_options.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -38,14 +39,21 @@ Future<void> main() async {
   if (GetPlatform.isWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: 'AIzaSyAxllRaUavkZ2xKg8-XBIvnbb7E4G8zwGE',
+        apiKey: "AIzaSyBdmp43G2pk4-CRCEph6bsljpJKzXXK7bY",
+        appId: "1:187788958576:web:4bc503925f6b5834544db5",
+        messagingSenderId: "187788958576",
+        projectId: "qareeb-31d01",
+        // authDomain: "qareeb-31d01.firebaseapp.com",
+        // storageBucket: "qareeb-31d01.appspot.com",
+
+        /* apiKey: 'AIzaSyAxllRaUavkZ2xKg8-XBIvnbb7E4G8zwGE',
         appId: '1:657725427758:android:f754b77096bf8b3a778fbf',
         messagingSenderId: 'G-L1GNL2YV61',
-        projectId: 'mared-app',
+        projectId: 'mared-app', */
       ),
     );
   }
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Map<String, Map<String, String>> languages = await di.init();
 
   NotificationBody? body;
@@ -63,7 +71,7 @@ Future<void> main() async {
 
   if (ResponsiveHelper.isWeb()) {
     await FacebookAuth.instance.webAndDesktopInitialize(
-      appId: "380903914182154",
+      appId: "1649192885832336",
       cookie: true,
       xfbml: true,
       version: "v15.0",
@@ -75,8 +83,7 @@ Future<void> main() async {
 class MyApp extends StatefulWidget {
   final Map<String, Map<String, String>>? languages;
   final NotificationBody? body;
-  const MyApp({Key? key, required this.languages, required this.body})
-      : super(key: key);
+  const MyApp({super.key, required this.languages, required this.body});
 
   @override
   State<MyApp> createState() => _MyAppState();

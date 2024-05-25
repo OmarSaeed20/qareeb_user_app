@@ -25,7 +25,7 @@ class Theme1HomeScreen extends StatelessWidget {
   final ScrollController scrollController;
   final SplashController splashController;
   final bool showMobileModule;
-  const Theme1HomeScreen({Key? key, required this.scrollController, required this.splashController, required this.showMobileModule}) : super(key: key);
+  const Theme1HomeScreen({super.key, required this.scrollController, required this.splashController, required this.showMobileModule}) ;
 
   @override
   Widget build(BuildContext context) {

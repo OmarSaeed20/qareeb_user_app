@@ -8,14 +8,13 @@ import 'package:get/get.dart';
 import 'package:sixam_mart/view/base/menu_drawer.dart';
 
 class ItemCampaignScreen extends StatefulWidget {
-  const ItemCampaignScreen({Key? key}) : super(key: key);
+  const ItemCampaignScreen({super.key});
 
   @override
   State<ItemCampaignScreen> createState() => _ItemCampaignScreenState();
 }
 
 class _ItemCampaignScreenState extends State<ItemCampaignScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -27,13 +26,20 @@ class _ItemCampaignScreenState extends State<ItemCampaignScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'campaigns'.tr),
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
-      body: Scrollbar(child: SingleChildScrollView(child: FooterView(child: SizedBox(
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
+      body: Scrollbar(
+          child: SingleChildScrollView(
+              child: FooterView(
+                  child: SizedBox(
         width: Dimensions.webMaxWidth,
         child: GetBuilder<CampaignController>(builder: (campController) {
           return ItemsView(
-            isStore: false, items: campController.itemCampaignList, stores: null,
-            isCampaign: true, noDataText: 'no_campaign_found'.tr,
+            isStore: false,
+            items: campController.itemCampaignList,
+            stores: null,
+            isCampaign: true,
+            noDataText: 'no_campaign_found'.tr,
           );
         }),
       )))),

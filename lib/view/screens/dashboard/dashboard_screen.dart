@@ -21,7 +21,7 @@ import 'widget/running_order_view_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   final int pageIndex;
-  const DashboardScreen({Key? key, required this.pageIndex}) : super(key: key);
+  const DashboardScreen({super.key, required this.pageIndex});
 
   @override
   DashboardScreenState createState() => DashboardScreenState();
@@ -44,7 +44,7 @@ class DashboardScreenState extends State<DashboardScreen> {
 
     _isLogin = Get.find<AuthController>().isLoggedIn();
 
-    if(_isLogin){
+    if (_isLogin) {
       Get.find<OrderController>().getRunningOrders(1);
     }
 
@@ -77,15 +77,18 @@ class DashboardScreenState extends State<DashboardScreen> {
           _setPage(0);
           return false;
         } else {
-          if(!ResponsiveHelper.isDesktop(context) && Get.find<SplashController>().module != null && Get.find<SplashController>().configModel!.module == null) {
+          if (!ResponsiveHelper.isDesktop(context) &&
+              Get.find<SplashController>().module != null &&
+              Get.find<SplashController>().configModel!.module == null) {
             Get.find<SplashController>().setModule(null);
             return false;
-          }else {
-            if(_canExit) {
+          } else {
+            if (_canExit) {
               return true;
-            }else {
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('back_press_again_to_exit'.tr, style: const TextStyle(color: Colors.white)),
+                content: Text('back_press_again_to_exit'.tr,
+                    style: const TextStyle(color: Colors.white)),
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.green,
                 duration: const Duration(seconds: 2),
@@ -100,92 +103,120 @@ class DashboardScreenState extends State<DashboardScreen> {
           }
         }
       },
-      child: GetBuilder<OrderController>(
-        builder: (orderController) {
-          List<OrderModel> runningOrder = orderController.runningOrderModel != null ? orderController.runningOrderModel!.orders! : [];
+      child: GetBuilder<OrderController>(builder: (orderController) {
+        List<OrderModel> runningOrder =
+            orderController.runningOrderModel != null
+                ? orderController.runningOrderModel!.orders!
+                : [];
 
-          List<OrderModel> reversOrder =  List.from(runningOrder.reversed);
+        List<OrderModel> reversOrder = List.from(runningOrder.reversed);
 
-          return Scaffold(
-            key: _scaffoldKey,
-
-            floatingActionButton: ResponsiveHelper.isDesktop(context) ? null :
-            (orderController.showBottomSheet && orderController.runningOrderModel != null && orderController.runningOrderModel!.orders!.isNotEmpty) ? const SizedBox() : FloatingActionButton(
-                  elevation: 5,
-                  backgroundColor: _pageIndex == 2 ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
-                  onPressed: () {
-                    // if(Get.find<SplashController>().module != null) {
-                      _setPage(2);
-                    // }else{
-                    //   showCustomSnackBar('please_select_any_module'.tr);
-                    // }
-                  },
-                  child: CartWidget(color: _pageIndex == 2 ? Theme.of(context).cardColor : Theme.of(context).disabledColor, size: 30),
-                ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-            bottomNavigationBar: ResponsiveHelper.isDesktop(context) ? const SizedBox()
-                : (orderController.showBottomSheet && orderController.runningOrderModel != null && orderController.runningOrderModel!.orders!.isNotEmpty) ? const SizedBox() :  BottomAppBar(
-                  elevation: 5,
-                  notchMargin: 5,
-                  clipBehavior: Clip.antiAlias,
-                  shape: const CircularNotchedRectangle(),
-
-                  child: Padding(
-                    padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                    child: Row(children: [
-                      BottomNavItem(iconData: Icons.home, isSelected: _pageIndex == 0, onTap: () => _setPage(0)),
-                      BottomNavItem(iconData: Icons.favorite, isSelected: _pageIndex == 1, onTap: () => _setPage(1)),
-                      const Expanded(child: SizedBox()),
-                      BottomNavItem(iconData: Icons.shopping_bag, isSelected: _pageIndex == 3, onTap: () => _setPage(3)),
-                      BottomNavItem(iconData: Icons.menu, isSelected: _pageIndex == 4, onTap: () {
-                        Get.bottomSheet(const MenuScreen(), backgroundColor: Colors.transparent, isScrollControlled: true);
-                      }),
-                    ]),
-                  ),
-                ),
-            body: ExpandableBottomSheet(
-              background: PageView.builder(
-                  controller: _pageController,
-                  itemCount: _screens.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return _screens[index];
-                  },
-                ),
-
-              persistentContentHeight: 100 ,
-
-              onIsContractedCallback: () {
-                if(!orderController.showOneOrder) {
-                  orderController.showOrders();
-                }
-              },
-              onIsExtendedCallback: () {
-                if(orderController.showOneOrder) {
-                  orderController.showOrders();
-                }
-              },
-
-              enableToggle: true,
-
-              expandableContent: (ResponsiveHelper.isDesktop(context) || !_isLogin || orderController.runningOrderModel == null
-                  || orderController.runningOrderModel!.orders!.isEmpty || !orderController.showBottomSheet) ? const SizedBox()
-                  : Dismissible(
-                      key: UniqueKey(),
-                      onDismissed: (direction) {
-                        if(orderController.showBottomSheet){
-                          orderController.showRunningOrders();
-                        }
+        return Scaffold(
+          key: _scaffoldKey,
+          floatingActionButton: ResponsiveHelper.isDesktop(context)
+              ? null
+              : (orderController.showBottomSheet &&
+                      orderController.runningOrderModel != null &&
+                      orderController.runningOrderModel!.orders!.isNotEmpty)
+                  ? const SizedBox()
+                  : FloatingActionButton(
+                      elevation: 5,
+                      backgroundColor: _pageIndex == 2
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).cardColor,
+                      onPressed: () {
+                        // if(Get.find<SplashController>().module != null) {
+                        _setPage(2);
+                        // }else{
+                        //   showCustomSnackBar('please_select_any_module'.tr);
+                        // }
                       },
-                      child: RunningOrderViewWidget(reversOrder: reversOrder),
-                  ),
-
+                      child: CartWidget(
+                          color: _pageIndex == 2
+                              ? Theme.of(context).cardColor
+                              : Theme.of(context).disabledColor,
+                          size: 30),
+                    ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: ResponsiveHelper.isDesktop(context)
+              ? const SizedBox()
+              : (orderController.showBottomSheet &&
+                      orderController.runningOrderModel != null &&
+                      orderController.runningOrderModel!.orders!.isNotEmpty)
+                  ? const SizedBox()
+                  : BottomAppBar(
+                      elevation: 5,
+                      notchMargin: 5,
+                      clipBehavior: Clip.antiAlias,
+                      shape: const CircularNotchedRectangle(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                            Dimensions.paddingSizeExtraSmall),
+                        child: Row(children: [
+                          BottomNavItem(
+                              iconData: Icons.home,
+                              isSelected: _pageIndex == 0,
+                              onTap: () => _setPage(0)),
+                          BottomNavItem(
+                              iconData: Icons.favorite,
+                              isSelected: _pageIndex == 1,
+                              onTap: () => _setPage(1)),
+                          const Expanded(child: SizedBox()),
+                          BottomNavItem(
+                              iconData: Icons.shopping_bag,
+                              isSelected: _pageIndex == 3,
+                              onTap: () => _setPage(3)),
+                          BottomNavItem(
+                              iconData: Icons.menu,
+                              isSelected: _pageIndex == 4,
+                              onTap: () {
+                                Get.bottomSheet(const MenuScreen(),
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true);
+                              }),
+                        ]),
+                      ),
+                    ),
+          body: ExpandableBottomSheet(
+            background: PageView.builder(
+              controller: _pageController,
+              itemCount: _screens.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return _screens[index];
+              },
             ),
-
-          );
-        }
-      ),
+            persistentContentHeight: 100,
+            onIsContractedCallback: () {
+              if (!orderController.showOneOrder) {
+                orderController.showOrders();
+              }
+            },
+            onIsExtendedCallback: () {
+              if (orderController.showOneOrder) {
+                orderController.showOrders();
+              }
+            },
+            enableToggle: true,
+            expandableContent: (ResponsiveHelper.isDesktop(context) ||
+                    !_isLogin ||
+                    orderController.runningOrderModel == null ||
+                    orderController.runningOrderModel!.orders!.isEmpty ||
+                    !orderController.showBottomSheet)
+                ? const SizedBox()
+                : Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction) {
+                      if (orderController.showBottomSheet) {
+                        orderController.showRunningOrders();
+                      }
+                    },
+                    child: RunningOrderViewWidget(reversOrder: reversOrder),
+                  ),
+          ),
+        );
+      }),
     );
   }
 
@@ -197,8 +228,12 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget trackView(BuildContext context, {required bool status}) {
-    return Container(height: 3, decoration: BoxDecoration(color: status ? Theme.of(context).primaryColor
-        : Theme.of(context).disabledColor.withOpacity(0.5), borderRadius: BorderRadius.circular(Dimensions.radiusDefault)));
+    return Container(
+        height: 3,
+        decoration: BoxDecoration(
+            color: status
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).disabledColor.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)));
   }
 }
-

@@ -9,8 +9,7 @@ import 'package:get/get.dart';
 
 class SearchResultWidget extends StatefulWidget {
   final String searchText;
-  const SearchResultWidget({Key? key, required this.searchText})
-      : super(key: key);
+  const SearchResultWidget({super.key, required this.searchText});
 
   @override
   SearchResultWidgetState createState() => SearchResultWidgetState();

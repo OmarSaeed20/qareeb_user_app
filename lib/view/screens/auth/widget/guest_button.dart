@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GuestButton extends StatelessWidget {
-  const GuestButton({Key? key}) : super(key: key);
+  const GuestButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,16 @@ class GuestButton extends StatelessWidget {
       onPressed: () {
         Navigator.pushReplacementNamed(context, RouteHelper.getInitialRoute());
       },
-      child: RichText(text: TextSpan(children: [
-        TextSpan(text: '${'continue_as'.tr} ', style: robotoRegular.copyWith(color: Theme.of(context).disabledColor)),
-        TextSpan(text: 'guest'.tr, style: robotoMedium.copyWith(color: Theme.of(context).textTheme.bodyLarge!.color)),
+      child: RichText(
+          text: TextSpan(children: [
+        TextSpan(
+            text: '${'continue_as'.tr} ',
+            style:
+                robotoRegular.copyWith(color: Theme.of(context).disabledColor)),
+        TextSpan(
+            text: 'guest'.tr,
+            style: robotoMedium.copyWith(
+                color: Theme.of(context).textTheme.bodyLarge!.color)),
       ])),
     );
   }

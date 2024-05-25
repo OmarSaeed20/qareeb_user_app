@@ -21,7 +21,7 @@ import 'package:get/get.dart';
 
 class CouponScreen extends StatefulWidget {
   final bool fromCheckout;
-  const CouponScreen({Key? key, required this.fromCheckout}) : super(key: key);
+  const CouponScreen({super.key, required this.fromCheckout});
 
   @override
   State<CouponScreen> createState() => _CouponScreenState();

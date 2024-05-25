@@ -9,7 +9,7 @@ import '../../widgets/trip_history_item.dart';
 
 class TripHistoryList extends StatelessWidget {
   final String type;
-  const TripHistoryList({Key? key, required this.type}) : super(key: key);
+  const TripHistoryList({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {

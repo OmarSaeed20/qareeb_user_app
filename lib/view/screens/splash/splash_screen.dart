@@ -17,7 +17,7 @@ import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   final NotificationBody? body;
-  const SplashScreen({Key? key, required this.body}) : super(key: key);
+  const SplashScreen({super.key, required this.body});
 
   @override
   SplashScreenState createState() => SplashScreenState();

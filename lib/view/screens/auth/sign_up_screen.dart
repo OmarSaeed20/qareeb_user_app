@@ -22,7 +22,7 @@ import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   SignUpScreenState createState() => SignUpScreenState();
@@ -42,7 +42,8 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _referCodeController = TextEditingController();
   String? _countryDialCode;
 
@@ -50,48 +51,71 @@ class SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     super.initState();
 
-    _countryDialCode = CountryCode.fromCountryCode(Get.find<SplashController>().configModel!.country!).dialCode;
+    _countryDialCode = CountryCode.fromCountryCode(
+            Get.find<SplashController>().configModel!.country!)
+        .dialCode;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ResponsiveHelper.isDesktop(context) ? const WebMenuBar() : null,
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
-      body: SafeArea(child: Scrollbar(
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
+      body: SafeArea(
+          child: Scrollbar(
         child: SingleChildScrollView(
-          padding: ResponsiveHelper.isDesktop(context) ? EdgeInsets.zero : const EdgeInsets.all(Dimensions.paddingSizeSmall),
+          padding: ResponsiveHelper.isDesktop(context)
+              ? EdgeInsets.zero
+              : const EdgeInsets.all(Dimensions.paddingSizeSmall),
           physics: const BouncingScrollPhysics(),
           child: FooterView(
             child: Center(
               child: Container(
                 width: context.width > 700 ? 700 : context.width,
-                padding: context.width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
-                margin: context.width > 700 ? const EdgeInsets.all(Dimensions.paddingSizeDefault) : null,
-                decoration: context.width > 700 ? BoxDecoration(
-                  color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                  boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 700 : 300]!, blurRadius: 5, spreadRadius: 1)],
-                ) : null,
+                padding: context.width > 700
+                    ? const EdgeInsets.all(Dimensions.paddingSizeDefault)
+                    : null,
+                margin: context.width > 700
+                    ? const EdgeInsets.all(Dimensions.paddingSizeDefault)
+                    : null,
+                decoration: context.width > 700
+                    ? BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radiusSmall),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey[Get.isDarkMode ? 700 : 300]!,
+                              blurRadius: 5,
+                              spreadRadius: 1)
+                        ],
+                      )
+                    : null,
                 child: GetBuilder<AuthController>(builder: (authController) {
-
                   return Column(children: [
-
                     Image.asset(Images.logo, width: 200),
                     // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                     // Center(child: Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge))),
                     const SizedBox(height: Dimensions.paddingSizeExtraLarge),
 
-                    Text('sign_up'.tr.toUpperCase(), style: robotoBlack.copyWith(fontSize: 30)),
+                    Text('sign_up'.tr.toUpperCase(),
+                        style: robotoBlack.copyWith(fontSize: 30)),
                     const SizedBox(height: 50),
 
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radiusSmall),
                         color: Theme.of(context).cardColor,
-                        boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 800 : 200]!, spreadRadius: 1, blurRadius: 5)],
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey[Get.isDarkMode ? 800 : 200]!,
+                              spreadRadius: 1,
+                              blurRadius: 5)
+                        ],
                       ),
                       child: Column(children: [
-
                         CustomTextField(
                           hintText: 'first_name'.tr,
                           controller: _firstNameController,
@@ -102,7 +126,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                           prefixIcon: Images.user,
                           divider: true,
                         ),
-
                         CustomTextField(
                           hintText: 'last_name'.tr,
                           controller: _lastNameController,
@@ -113,7 +136,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                           prefixIcon: Images.user,
                           divider: true,
                         ),
-
                         CustomTextField(
                           hintText: 'email'.tr,
                           controller: _emailController,
@@ -123,23 +145,35 @@ class SignUpScreenState extends State<SignUpScreen> {
                           prefixIcon: Images.mail,
                           divider: true,
                         ),
-
                         Row(children: [
                           CountryCodePicker(
                             onChanged: (CountryCode countryCode) {
                               _countryDialCode = countryCode.dialCode;
                             },
-                            initialSelection: CountryCode.fromCountryCode(Get.find<SplashController>().configModel!.country!).code,
-                            favorite: [CountryCode.fromCountryCode(Get.find<SplashController>().configModel!.country!).code!],
+                            initialSelection: CountryCode.fromCountryCode(
+                                    Get.find<SplashController>()
+                                        .configModel!
+                                        .country!)
+                                .code,
+                            favorite: [
+                              CountryCode.fromCountryCode(
+                                      Get.find<SplashController>()
+                                          .configModel!
+                                          .country!)
+                                  .code!
+                            ],
                             showDropDownButton: true,
                             padding: EdgeInsets.zero,
                             showFlagMain: true,
                             dialogBackgroundColor: Theme.of(context).cardColor,
                             textStyle: robotoRegular.copyWith(
-                              fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).textTheme.bodyLarge!.color,
+                              fontSize: Dimensions.fontSizeLarge,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
                             ),
                           ),
-                          Expanded(child: CustomTextField(
+                          Expanded(
+                              child: CustomTextField(
                             hintText: 'phone'.tr,
                             controller: _phoneController,
                             focusNode: _phoneFocus,
@@ -148,8 +182,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                             divider: false,
                           )),
                         ]),
-                        const Padding(padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge), child: Divider(height: 1)),
-
+                        const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeLarge),
+                            child: Divider(height: 1)),
                         CustomTextField(
                           hintText: 'password'.tr,
                           controller: _passwordController,
@@ -160,31 +196,46 @@ class SignUpScreenState extends State<SignUpScreen> {
                           isPassword: true,
                           divider: true,
                         ),
-
                         CustomTextField(
                           hintText: 'confirm_password'.tr,
                           controller: _confirmPasswordController,
                           focusNode: _confirmPasswordFocus,
-                          nextFocus: Get.find<SplashController>().configModel!.refEarningStatus == 1 ? _referCodeFocus : null,
-                          inputAction: Get.find<SplashController>().configModel!.refEarningStatus == 1 ? TextInputAction.next : TextInputAction.done,
+                          nextFocus: Get.find<SplashController>()
+                                      .configModel!
+                                      .refEarningStatus ==
+                                  1
+                              ? _referCodeFocus
+                              : null,
+                          inputAction: Get.find<SplashController>()
+                                      .configModel!
+                                      .refEarningStatus ==
+                                  1
+                              ? TextInputAction.next
+                              : TextInputAction.done,
                           inputType: TextInputType.visiblePassword,
                           prefixIcon: Images.lock,
                           isPassword: true,
-                          onSubmit: (text) => (GetPlatform.isWeb && authController.acceptTerms) ? _register(authController, _countryDialCode!) : null,
+                          onSubmit: (text) =>
+                              (GetPlatform.isWeb && authController.acceptTerms)
+                                  ? _register(authController, _countryDialCode!)
+                                  : null,
                         ),
-
-                        (Get.find<SplashController>().configModel!.refEarningStatus == 1 ) ? CustomTextField(
-                          hintText: 'refer_code'.tr,
-                          controller: _referCodeController,
-                          focusNode: _referCodeFocus,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.text,
-                          capitalization: TextCapitalization.words,
-                          prefixIcon: Images.referCode,
-                          divider: false,
-                          prefixSize: 14,
-                        ) : const SizedBox(),
-
+                        (Get.find<SplashController>()
+                                    .configModel!
+                                    .refEarningStatus ==
+                                1)
+                            ? CustomTextField(
+                                hintText: 'refer_code'.tr,
+                                controller: _referCodeController,
+                                focusNode: _referCodeFocus,
+                                inputAction: TextInputAction.done,
+                                inputType: TextInputType.text,
+                                capitalization: TextCapitalization.words,
+                                prefixIcon: Images.referCode,
+                                divider: false,
+                                prefixSize: 14,
+                              )
+                            : const SizedBox(),
                       ]),
                     ),
                     const SizedBox(height: Dimensions.paddingSizeLarge),
@@ -192,23 +243,31 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ConditionCheckBox(authController: authController),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                    !authController.isLoading ? Row(children: [
-                      Expanded(child: CustomButton(
-                        buttonText: 'sign_in'.tr,
-                        transparent: true,
-                        onPressed: () =>Get.toNamed(RouteHelper.getSignInRoute(RouteHelper.signUp)),
-                      )),
-                      Expanded(child: CustomButton(
-                        buttonText: 'sign_up'.tr,
-                        onPressed: authController.acceptTerms ? () => _register(authController, _countryDialCode!) : null,
-                      )),
-                    ]) : const Center(child: CircularProgressIndicator()),
+                    !authController.isLoading
+                        ? Row(children: [
+                            Expanded(
+                                child: CustomButton(
+                              buttonText: 'sign_in'.tr,
+                              transparent: true,
+                              onPressed: () => Get.toNamed(
+                                  RouteHelper.getSignInRoute(
+                                      RouteHelper.signUp)),
+                            )),
+                            Expanded(
+                                child: CustomButton(
+                              buttonText: 'sign_up'.tr,
+                              onPressed: authController.acceptTerms
+                                  ? () => _register(
+                                      authController, _countryDialCode!)
+                                  : null,
+                            )),
+                          ])
+                        : const Center(child: CircularProgressIndicator()),
                     const SizedBox(height: 30),
 
                     // SocialLoginWidget(),
 
                     const GuestButton(),
-
                   ]);
                 }),
               ),
@@ -228,49 +287,56 @@ class SignUpScreenState extends State<SignUpScreen> {
     String confirmPassword = _confirmPasswordController.text.trim();
     String referCode = _referCodeController.text.trim();
 
-    String numberWithCountryCode = countryCode+number;
+    String numberWithCountryCode = countryCode + number;
     bool isValid = GetPlatform.isAndroid ? false : true;
-    if(GetPlatform.isAndroid) {
+    if (GetPlatform.isAndroid) {
       try {
-        PhoneNumber phoneNumber = await PhoneNumberUtil().parse(numberWithCountryCode);
-        numberWithCountryCode = '+${phoneNumber.countryCode}${phoneNumber.nationalNumber}';
+        PhoneNumber phoneNumber =
+            await PhoneNumberUtil().parse(numberWithCountryCode);
+        numberWithCountryCode =
+            '+${phoneNumber.countryCode}${phoneNumber.nationalNumber}';
         isValid = true;
       } catch (_) {}
     }
 
     if (firstName.isEmpty) {
       showCustomSnackBar('enter_your_first_name'.tr);
-    }else if (lastName.isEmpty) {
+    } else if (lastName.isEmpty) {
       showCustomSnackBar('enter_your_last_name'.tr);
-    }else if (email.isEmpty) {
+    } else if (email.isEmpty) {
       showCustomSnackBar('enter_email_address'.tr);
-    }else if (!GetUtils.isEmail(email)) {
+    } else if (!GetUtils.isEmail(email)) {
       showCustomSnackBar('enter_a_valid_email_address'.tr);
-    }else if (number.isEmpty) {
+    } else if (number.isEmpty) {
       showCustomSnackBar('enter_phone_number'.tr);
-    }else if (!isValid) {
+    } else if (!isValid) {
       showCustomSnackBar('invalid_phone_number'.tr);
-    }else if (password.isEmpty) {
+    } else if (password.isEmpty) {
       showCustomSnackBar('enter_password'.tr);
-    }else if (password.length < 6) {
+    } else if (password.length < 6) {
       showCustomSnackBar('password_should_be'.tr);
-    }else if (password != confirmPassword) {
+    } else if (password != confirmPassword) {
       showCustomSnackBar('confirm_password_does_not_matched'.tr);
-    }else {
+    } else {
       SignUpBody signUpBody = SignUpBody(
-        fName: firstName, lName: lastName, email: email, phone: numberWithCountryCode,
-        password: password, refCode: referCode,
+        fName: firstName,
+        lName: lastName,
+        email: email,
+        phone: numberWithCountryCode,
+        password: password,
+        refCode: referCode,
       );
       authController.registration(signUpBody).then((status) async {
         if (status.isSuccess) {
-          if(Get.find<SplashController>().configModel!.customerVerification!) {
+          if (Get.find<SplashController>().configModel!.customerVerification!) {
             List<int> encoded = utf8.encode(password);
             String data = base64Encode(encoded);
-            Get.toNamed(RouteHelper.getVerificationRoute(numberWithCountryCode, status.message, RouteHelper.signUp, data));
-          }else {
+            Get.toNamed(RouteHelper.getVerificationRoute(numberWithCountryCode,
+                status.message, RouteHelper.signUp, data));
+          } else {
             Get.toNamed(RouteHelper.getAccessLocationRoute(RouteHelper.signUp));
           }
-        }else {
+        } else {
           showCustomSnackBar(status.message);
         }
       });

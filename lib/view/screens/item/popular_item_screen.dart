@@ -9,40 +9,55 @@ import 'package:sixam_mart/view/base/menu_drawer.dart';
 
 class PopularItemScreen extends StatefulWidget {
   final bool isPopular;
-  const PopularItemScreen({Key? key, required this.isPopular}) : super(key: key);
+  const PopularItemScreen({super.key, required this.isPopular});
 
   @override
   State<PopularItemScreen> createState() => _PopularItemScreenState();
 }
 
 class _PopularItemScreenState extends State<PopularItemScreen> {
-
   @override
   void initState() {
     super.initState();
 
-    if(widget.isPopular) {
-      Get.find<ItemController>().getPopularItemList(true, Get.find<ItemController>().popularType, false);
-    }else {
-      Get.find<ItemController>().getReviewedItemList(true, Get.find<ItemController>().reviewType, false);
+    if (widget.isPopular) {
+      Get.find<ItemController>().getPopularItemList(
+          true, Get.find<ItemController>().popularType, false);
+    } else {
+      Get.find<ItemController>().getReviewedItemList(
+          true, Get.find<ItemController>().reviewType, false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.isPopular ? 'popular_items_nearby'.tr : 'best_reviewed_item'.tr, showCart: true),
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
-      body: Scrollbar(child: SingleChildScrollView(child: FooterView(child: SizedBox(
+      appBar: CustomAppBar(
+          title: widget.isPopular
+              ? 'popular_items_nearby'.tr
+              : 'best_reviewed_item'.tr,
+          showCart: true),
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
+      body: Scrollbar(
+          child: SingleChildScrollView(
+              child: FooterView(
+                  child: SizedBox(
         width: Dimensions.webMaxWidth,
         child: GetBuilder<ItemController>(builder: (itemController) {
           return ItemsView(
-            isStore: false, stores: null, type: widget.isPopular ? itemController.popularType : itemController.reviewType,
-            items: widget.isPopular ? itemController.popularItemList : itemController.reviewedItemList,
+            isStore: false,
+            stores: null,
+            type: widget.isPopular
+                ? itemController.popularType
+                : itemController.reviewType,
+            items: widget.isPopular
+                ? itemController.popularItemList
+                : itemController.reviewedItemList,
             onVegFilterTap: (String type) {
-              if(widget.isPopular) {
+              if (widget.isPopular) {
                 itemController.getPopularItemList(true, type, true);
-              }else {
+              } else {
                 itemController.getReviewedItemList(true, type, true);
               }
             },

@@ -21,14 +21,14 @@ import 'package:sixam_mart/view/screens/store/widget/bottom_cart_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   final String? queryText;
-  const SearchScreen({Key? key, required this.queryText}) : super(key: key);
+  const SearchScreen({super.key, required this.queryText});
 
   @override
   SearchScreenState createState() => SearchScreenState();
 }
 
 class SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _SearchControllerx = TextEditingController();
+  final TextEditingController _searchControllerx = TextEditingController();
   late bool _isLoggedIn;
 
   @override
@@ -68,7 +68,7 @@ class SearchScreenState extends State<SearchScreen> {
                 : const EdgeInsets.symmetric(
                     vertical: Dimensions.paddingSizeSmall),
             child: GetBuilder<SearchControllerx>(builder: (searchControllerx) {
-              _SearchControllerx.text = searchControllerx.searchText!;
+              _searchControllerx.text = searchControllerx.searchText!;
               return Column(children: [
                 widget.queryText!.isNotEmpty
                     ? const SizedBox()
@@ -80,7 +80,7 @@ class SearchScreenState extends State<SearchScreen> {
                                   width: Dimensions.paddingSizeSmall),
                               Expanded(
                                   child: SearchField(
-                                controller: _SearchControllerx,
+                                controller: _searchControllerx,
                                 hint: Get.find<SplashController>()
                                         .configModel!
                                         .moduleConfig!
@@ -92,9 +92,9 @@ class SearchScreenState extends State<SearchScreen> {
                                     ? Icons.filter_list
                                     : Icons.search,
                                 iconPressed: () => _actionSearch(false,
-                                    _SearchControllerx.text.trim(), false),
+                                    _searchControllerx.text.trim(), false),
                                 onSubmit: (text) => _actionSearch(true,
-                                    _SearchControllerx.text.trim(), false),
+                                    _searchControllerx.text.trim(), false),
                               )),
                               CustomButton(
                                 onPressed: () => searchControllerx.isSearchMode
@@ -343,7 +343,7 @@ class SearchScreenState extends State<SearchScreen> {
                             ),
                           )
                         : SearchResultWidget(
-                            searchText: _SearchControllerx.text.trim())),
+                            searchText: _searchControllerx.text.trim())),
               ]);
             }),
           )),

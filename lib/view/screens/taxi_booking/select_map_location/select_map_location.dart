@@ -22,8 +22,10 @@ class SelectMapLocation extends StatefulWidget {
   final AddressModel? address;
   final Vehicles? vehicle;
   const SelectMapLocation(
-      {Key? key, required this.riderType, required this.address, this.vehicle})
-      : super(key: key);
+      {super.key,
+      required this.riderType,
+      required this.address,
+      this.vehicle});
 
   @override
   State<SelectMapLocation> createState() => _SelectMapLocationState();

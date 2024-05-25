@@ -28,16 +28,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.1000163153346-tmf9s0kpekc5mum4ubpga4a8gguk2592</string>
-				<string>fb380903914182154</string>
+				<string>fb1649192885832336</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>380903914182154</string>
+	<string>1649192885832336</string>
 	<key>FacebookClientToken</key>
-	<string>6d874ccc2786e43042d78823eecd5b63</string>
+	<string>3dab4282de4973f2931949a030e721e6</string>
 	<key>FacebookDisplayName</key>
 	<string>قريب</string>
 	<key>LSApplicationQueriesSchemes</key>

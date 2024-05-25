@@ -9,57 +9,92 @@ import 'package:get/get.dart';
 class VegFilterWidget extends StatelessWidget {
   final String? type;
   final Function(String value)? onSelected;
-  const VegFilterWidget({Key? key, required this.type, required this.onSelected}) : super(key: key);
+  const VegFilterWidget(
+      {super.key, required this.type, required this.onSelected});
 
   @override
   Widget build(BuildContext context) {
     final bool ltr = Get.find<LocalizationController>().isLtr;
 
-    return (Get.find<SplashController>().configModel!.moduleConfig!.module!.vegNonVeg!
-    && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Align(alignment: Alignment.center, child: Container(
-      height: 30,
-      margin: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(Dimensions.radiusSmall)),
-        border: Border.all(color: Theme.of(context).primaryColor),
-      ),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: Get.find<ItemController>().itemTypeList.length,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () => onSelected!(Get.find<ItemController>().itemTypeList[index]),
+    return (Get.find<SplashController>()
+                .configModel!
+                .moduleConfig!
+                .module!
+                .vegNonVeg! &&
+            Get.find<SplashController>().configModel!.toggleVegNonVeg!)
+        ? Align(
+            alignment: Alignment.center,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-              alignment: Alignment.center,
+              height: 30,
+              margin: const EdgeInsets.symmetric(
+                  vertical: Dimensions.paddingSizeSmall),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(
-                    ltr ? index == 0 ? Dimensions.radiusSmall : 0
-                        : index == Get.find<ItemController>().itemTypeList.length-1
-                        ? Dimensions.radiusSmall : 0,
-                  ),
-                  right: Radius.circular(
-                    ltr ? index == Get.find<ItemController>().itemTypeList.length-1
-                        ? Dimensions.radiusSmall : 0 : index == 0
-                        ? Dimensions.radiusSmall : 0,
-                  ),
-                ),
-                color: Get.find<ItemController>().itemTypeList[index] == type ? Theme.of(context).primaryColor
-                    : Theme.of(context).cardColor,
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(Dimensions.radiusSmall)),
+                border: Border.all(color: Theme.of(context).primaryColor),
               ),
-              child: Text(
-                Get.find<ItemController>().itemTypeList[index].tr,
-                style: Get.find<ItemController>().itemTypeList[index] == type
-                    ? robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).cardColor)
-                    : robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: Get.find<ItemController>().itemTypeList.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () => onSelected!(
+                        Get.find<ItemController>().itemTypeList[index]),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Dimensions.paddingSizeSmall),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(
+                            ltr
+                                ? index == 0
+                                    ? Dimensions.radiusSmall
+                                    : 0
+                                : index ==
+                                        Get.find<ItemController>()
+                                                .itemTypeList
+                                                .length -
+                                            1
+                                    ? Dimensions.radiusSmall
+                                    : 0,
+                          ),
+                          right: Radius.circular(
+                            ltr
+                                ? index ==
+                                        Get.find<ItemController>()
+                                                .itemTypeList
+                                                .length -
+                                            1
+                                    ? Dimensions.radiusSmall
+                                    : 0
+                                : index == 0
+                                    ? Dimensions.radiusSmall
+                                    : 0,
+                          ),
+                        ),
+                        color: Get.find<ItemController>().itemTypeList[index] ==
+                                type
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).cardColor,
+                      ),
+                      child: Text(
+                        Get.find<ItemController>().itemTypeList[index].tr,
+                        style: Get.find<ItemController>().itemTypeList[index] ==
+                                type
+                            ? robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeSmall,
+                                color: Theme.of(context).cardColor)
+                            : robotoRegular.copyWith(
+                                fontSize: Dimensions.fontSizeSmall),
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
-          );
-        },
-      ),
-    )) : const SizedBox();
+            ))
+        : const SizedBox();
   }
 }

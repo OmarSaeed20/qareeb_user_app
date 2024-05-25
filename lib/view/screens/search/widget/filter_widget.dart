@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 class FilterWidget extends StatelessWidget {
   final double? maxValue;
   final bool isStore;
-  const FilterWidget({Key? key, required this.maxValue, required this.isStore})
-      : super(key: key);
+  const FilterWidget(
+      {super.key, required this.maxValue, required this.isStore});
 
   @override
   Widget build(BuildContext context) {

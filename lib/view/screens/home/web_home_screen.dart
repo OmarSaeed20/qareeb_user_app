@@ -21,8 +21,7 @@ import 'package:get/get.dart';
 
 class WebHomeScreen extends StatelessWidget {
   final ScrollController scrollController;
-  const WebHomeScreen({Key? key, required this.scrollController})
-      : super(key: key);
+  const WebHomeScreen({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {

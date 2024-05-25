@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class ConditionCheckBox extends StatelessWidget {
   final AuthController authController;
-  const ConditionCheckBox({Key? key, required this.authController}) : super(key: key);
+  const ConditionCheckBox({super.key, required this.authController});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,12 @@ class ConditionCheckBox extends StatelessWidget {
       ),
       Text('i_agree_with'.tr, style: robotoRegular),
       InkWell(
-        onTap: () => Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
+        onTap: () =>
+            Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
         child: Padding(
           padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-          child: Text('terms_conditions'.tr, style: robotoMedium.copyWith(color: Colors.blue)),
+          child: Text('terms_conditions'.tr,
+              style: robotoMedium.copyWith(color: Colors.blue)),
         ),
       ),
     ]);

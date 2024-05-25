@@ -7,15 +7,14 @@ class CustomHeaderLine extends StatelessWidget {
   final bool cancelOrder;
 
   const CustomHeaderLine(
-      {Key? key,
-        this.color,
-        required this.gradientColor1,
-        required this.gradientColor2,
-        this.cancelOrder = false})
-      : super(key: key);
+      {super.key,
+      this.color,
+      required this.gradientColor1,
+      required this.gradientColor2,
+      this.cancelOrder = false});
   @override
   Widget build(BuildContext context) {
-    return   Expanded(
+    return Expanded(
       child: Stack(
         alignment: cancelOrder == false
             ? AlignmentDirectional.topStart
@@ -26,22 +25,25 @@ class CustomHeaderLine extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
                 gradient: LinearGradient(
-                    stops: const [0.6,0.5],
+                    stops: const [0.6, 0.5],
                     tileMode: TileMode.repeated,
                     colors: [gradientColor1, gradientColor2])),
           ),
           color != null
               ? Container(
-            height: 3,
-            width: 30,
-            decoration: BoxDecoration(color: color,borderRadius: BorderRadius.circular(50),),
-          )
+                  height: 3,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                )
               : const SizedBox(),
           cancelOrder
               ? const Icon(
-            Icons.close,
-            color: Colors.red,
-          )
+                  Icons.close,
+                  color: Colors.red,
+                )
               : const SizedBox(),
         ],
       ),

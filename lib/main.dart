@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sixam_mart/controller/auth_controller.dart';
@@ -67,7 +68,8 @@ Future<void> main() async {
       await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
-  } catch (_) {}
+  } catch (_) {
+  }
 
   if (ResponsiveHelper.isWeb()) {
     await FacebookAuth.instance.webAndDesktopInitialize(

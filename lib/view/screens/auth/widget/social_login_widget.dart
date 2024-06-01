@@ -37,25 +37,15 @@ class SocialLoginWidget extends StatelessWidget {
               Get.find<SplashController>().configModel!.socialLogin![0].status!
                   ? InkWell(
                       onTap: () async {
-                        /* googleSignIn.signIn().then((result) {
-                          result?.authentication.then((googleKey) {
-                            print(googleKey.accessToken);
-                            print(googleKey.idToken);
-                            print(googleSignIn.currentUser?.displayName);
-                          }).catchError((err) {
-                            print('inner error');
-                          });
-                        }).catchError((err) {
-                          print('error occured');
-                        }); */
                         GoogleSignInAccount googleAccount =
                             (await googleSignIn.signIn())!;
 
                         GoogleSignInAuthentication auth =
                             await googleAccount.authentication;
-                        debugPrint("email >>>>>>>>> ${googleAccount.email}");
-                        debugPrint("access >>>>>>>>> ${auth.accessToken}");
-                        debugPrint("id Tok >>>>>>>>> ${auth.idToken}");
+                        // debugPrint("email >>>>>>>>> ${googleAccount.email}");
+                        // debugPrint("serverAuthCode >>>>>>>>> ${googleAccount.serverAuthCode}");
+                        // debugPrint("access >>>>>>>>> ${auth.accessToken}");
+                        // debugPrint("id Tok >>>>>>>>> ${auth.idToken}");
 
                         Get.find<AuthController>().loginWithSocialMedia(
                           SocialLogInBody(
@@ -161,7 +151,7 @@ class SocialLoginWidget extends StatelessWidget {
                                 .appleLogin![0]
                                 .clientId!,
                             redirectUri: Uri.parse(
-                              // TODO: Update your server's redirect URI
+                                // TODO: Update your server's redirect URI
                                 'https://6ammart-web.6amtech.com/apple'),
                           ),
                         );

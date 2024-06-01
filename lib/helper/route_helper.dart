@@ -431,8 +431,9 @@ class RouteHelper {
             data = SocialLogInBody.fromJson(jsonDecode(utf8.decode(decode)));
           }
           return ForgetPassScreen(
-              fromSocialLogin: Get.parameters['page'] == 'social-login',
-              socialLogInBody: data);
+            fromSocialLogin: Get.parameters['page'] == 'social-login',
+            socialLogInBody: data,
+          );
         }),
     GetPage(
         name: resetPassword,

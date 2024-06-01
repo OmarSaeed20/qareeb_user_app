@@ -31,7 +31,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCrIStYLavaCbivcKb47QgYp6gqSyMRyRQ"/>
+            android:value="AIzaSyB8Cpacg0eBu2E64kuuwOxQ_dxeg_M3FOo"/>
 
         <activity
             android:name=".MainActivity"
@@ -71,6 +71,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        
+        <activity
+            android:name="com.semicolon.qareeb.DisplayMessageActivity"
+            android:parentActivityName="com.semicolon.qareeb.MainActivity" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
